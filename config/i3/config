@@ -27,13 +27,13 @@ font xft:Noto Sans 10
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec termite
+bindsym $mod+Return exec terminator -b
 
 # kill focused window
 bindsym $mod+Shift+q kill
 
 # start program launcher
-bindsym $mod+d exec --no-startup-id dmenu-frecency
+bindsym $mod+d exec --no-startup-id ~/dmenu-frecency
 
 # launch categorized menu
 bindsym $mod+z exec --no-startup-id morc_menu
@@ -51,12 +51,22 @@ exec --no-startup-id pa-applet
 ################################################################################################
 
 # Screen brightness controls
-bindsym XF86MonBrightnessUp exec xbacklight -inc 10
-bindsym XF86MonBrightnessDown exec xbacklight -dec 10
+# bindsym XF86MonBrightnessUp exec xbacklight -inc 10
+# bindsym XF86MonBrightnessDown exec xbacklight -dec 10
+bindsym XF86MonBrightnessUp exec light -A 10 # Increase Brightness
+bindsym XF86MonBrightnessDown exec light -U 10 # Decrease Brightness
+
 # Sound
-bindsym XF86AudioRaiseVolume exec "amixer -q sset Master,0 5+ unmute"
-bindsym XF86AudioLowerVolume exec "amixer -q sset Master,0 5- unmute"
-bindsym XF86AudioMute exec "amixer -q sset Master,0 toggle"
+# Raise Volume
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -D pulse sset Master 5%+ && paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga
+# Lower Volume
+bindsym XF86AudioLowerVolume exec --no-startup-id amixer -D pulse sset Master 5%- && paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga
+bindsym XF86AudioMute exec --no-startup-id amixer -D pulse sset Master toggle-mute # Toggle muting
+
+# bindsym XF86AudioRaiseVolume exec "amixer -q sset Master,0 5+ unmute"
+# bindsym XF86AudioLowerVolume exec "amixer -q sset Master,0 5- unmute"
+# bindsym XF86AudioMute exec "amixer -q sset Master,0 toggle"
+
 
 # Start Applications
 bindsym $mod+Ctrl+b exec terminal -e 'bmenu'
@@ -204,7 +214,7 @@ assign [class="vlc"] $ws4
 assign [class="pcmanfm"] $ws4
 
 # terminal workspace
-assign [class="Terminator"] $ws5
+# assign [class="Terminator"] $ws5
 
 # Graphics workspace
 assign [class="Gimp"] $ws6
